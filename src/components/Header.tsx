@@ -21,8 +21,6 @@ export default class Header extends React.Component<IProps> {
 			isAddingNewWord
 		} = this.props;
 
-		
-
 		if (isPlayerManagerVisible)
 			return (
 				<div className="header-area">
@@ -30,17 +28,17 @@ export default class Header extends React.Component<IProps> {
 				</div>
 			);
 
-		if (isVocabularyListVisible)
-			return (
-				<div className="header-area">
-					<h1>{ this.getPlayerName() }'s Vocabulary List</h1>
-				</div>
-			);
 
 		if (isAddingNewWord)
 			return (
 				<div className="header-area">
 					<h1>Add a New Word for { this.getPlayerName() }</h1>
+				</div>
+			);
+		if (isVocabularyListVisible)
+			return (
+				<div className="header-area">
+					<h1>{ this.getPlayerName() }'s Vocabulary List</h1>
 				</div>
 			);
 

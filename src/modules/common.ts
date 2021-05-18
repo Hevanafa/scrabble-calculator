@@ -62,8 +62,18 @@ function getWordValue(word: string) {
 		).reduce((a, b) => a + b);
 }
 
+function getLetterChainClass(word: string) {
+	return (
+		!word ? " empty" :
+		word.length <= 5 ? " normal" :
+		word.length <= 10 ? " smaller" :
+		" smallest"
+	)
+}
+
 export {
 	Player,
 	getLetterValue,
-	getWordValue
+	getWordValue,
+	getLetterChainClass
 }

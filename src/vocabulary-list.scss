@@ -1,0 +1,65 @@
+@import "./constants.scss";
+
+.vocabulary-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.word-container {
+		position: relative;
+
+		width: 100%;
+		height: 38vh;
+
+		margin-bottom: 2vh;
+
+		@include absolute-bg;
+
+		.scrollable-area {
+			position: relative;
+			width: calc(100% - 8vw);
+			height: 100%;
+
+			padding: 2vh 4vw;
+
+			overflow-y: scroll;
+
+			& > div {
+				position: relative;
+			}
+
+			& > .empty-list {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				width: 100%;
+				height: 100%;
+			}
+
+			& > .word {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 3vh;
+				color: black;
+
+				height: 6vh;
+
+				.right-group {
+					display: flex;
+					align-items: center;
+
+					img {
+						height: 6vh;
+						margin-left: 2vw;
+					}
+				}
+			}
+		}
+	}
+
+	button {
+		margin: 2vh 0;
+	}
+}

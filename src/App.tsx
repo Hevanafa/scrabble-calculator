@@ -59,7 +59,7 @@ export default class App extends React.Component<{}, IState> {
 		const idx = Number(e.currentTarget?.getAttribute("idx"));
 
 		const { players } = this.state;
-		const newName = prompt(`Enter the new name for Player ${idx+1}:`, players[idx].getName());
+		const newName = prompt(`Enter the new name for Player ${idx + 1}:`, players[idx].getName());
 
 		if (newName === null)
 			return;
@@ -168,15 +168,6 @@ export default class App extends React.Component<{}, IState> {
 											</div> : null
 									)
 								}
-
-								<DarkCyanButton
-									clickEvent={this.showPlayerManager.bind(this)}
-									label="Manage Players" />
-
-								<DarkCyanButton
-									clickEvent={this.noop}
-									label="Reset Scores"
-								/>
 							</div>
 							: null
 					}
@@ -224,7 +215,20 @@ export default class App extends React.Component<{}, IState> {
 								null
 					}
 
-					{this.isStartPage() ? <Footer /> : null}
+					{
+						this.isStartPage() ? <>
+							<DarkCyanButton
+								clickEvent={this.showPlayerManager.bind(this)}
+								label="Manage Players" />
+
+							<DarkCyanButton
+								clickEvent={this.resetScores.bind(this)}
+								label="Reset Scores"
+							/>
+
+							<Footer />
+						</> : null
+					}
 				</div>
 			</div>
 		);

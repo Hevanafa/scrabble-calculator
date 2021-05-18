@@ -1,14 +1,6 @@
-@font-face {
-	font-family: Nexa;
-	font-weight: bold;
-	src: url("./assets/fonts/NexaBlack.otf");
-}
-
-@font-face {
-	font-family: Nexa;
-	font-weight: normal;
-	src: url("./assets/fonts/NexaXBold.otf");
-}
+@import "fonts.scss";
+@import "vocabulary-list.scss";
+@import "letter-chain.scss";
 
 .App {
 	font-family: Nexa;
@@ -20,8 +12,16 @@
 	height: 100vh;
 
 	& > .lighter-container {
+		display: flex;
+		flex-direction: column;
+
 		flex-shrink: 1;
 		flex-grow: 1;
+
+		& > button,
+		& > .footer {
+			margin: 2vh 0;
+		}
 	}
 }
 
@@ -88,7 +88,7 @@
 	justify-content: center;
 	align-items: center;
 
-	background: #4EA3BA;
+	background: #4ea3ba;
 	color: black;
 	border: 4px solid white;
 
@@ -151,6 +151,8 @@
 	flex-direction: column;
 	align-items: center;
 
+	height: 30vh;
+
 	.player {
 		width: 100%;
 
@@ -163,12 +165,11 @@
 		.right-group {
 			display: flex;
 			align-items: center;
-
 		}
 
 		button {
 			margin-left: 1vw;
-	
+
 			& > img {
 				height: 6vh;
 			}
@@ -196,110 +197,195 @@
 	}
 }
 
-.vocabulary-list {
+.add-new-word {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 
-	.word-container {
+	.new-word-container {
 		position: relative;
 
 		width: 100%;
 		height: 38vh;
 
-		.bg {
+		& > .bg {
 			position: absolute;
 			width: 100%;
 			height: 100%;
 		}
 
-		.scrollable-area {
+		.word-multiplier {
 			position: relative;
-			width: calc(100% - 8vw);
-			height: 100%;
+			display: flex;
+			justify-content: center;
 
-			padding: 2vh 4vw;
-	
-			overflow-y: scroll;
-	
-			& > div {
-				position: relative;
+			margin: 5vh 0;
+
+			img {
+				position: absolute;
+				height: 10vh;
 			}
-	
-			& > .empty-list {
+
+			button {
+				font-family: Nexa;
+				font-weight: bold;
+				font-size: 4vh;
+				color: white;
+
 				display: flex;
 				justify-content: center;
 				align-items: center;
-	
-				width: 100%;
-				height: 100%;
 			}
-	
-			& > .word {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				font-size: 3vh;
-				color: black;
-	
-				height: 6vh;
-	
-				.right-group {
-					display: flex;
-					align-items: center;
-	
-					img {
-						height: 6vh;
-						margin-left: 2vw;
-					}
-				}
-			}
-		}		
-	}
-
-	
-}
-
-.letter-chain {
-	display: flex;
-
-	& > div {
-		width: 40px;
-		height: 40px;
-
-		display: flex;
-
-		& > .big-letter {
-			font-size: 20px;
 		}
 
-		& > .value {
-			align-self: flex-end;
-		}
-	}
-}
+		.letter-chain {
+			position: relative;
+			width: 100%;
+			height: 8vh;
 
-.add-new-word {
-	// background: green;
-
-	.letter-chain {
-		background: cornflowerblue;
-
-		border: 1px solid black;
-	}
-
-	.multiplier-row {
-		display: flex;
-
-		& > div {
 			display: flex;
-			justify-content: center;
+			justify-content: space-around;
 			align-items: center;
 
-			border: 1px solid black;
-			border-radius: 4px;
-			width: 40px;
-			height: 40px;
+			&.empty {
+				justify-content: center;
+				align-items: center;
+			}
+
+			.letter-block {
+				position: relative;
+				width: 8vh;
+				height: 8vh;
+
+				@include absolute-bg;
+
+				.big-letter {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					margin: auto;
+
+					width: fit-content;
+					height: fit-content;
+
+					font-size: 3vh;
+				}
+
+				.value {
+					position: absolute;
+					text-align: right;
+					right: 20%;
+					bottom: 15%;
+					font-size: 2vh;
+				}
+			}
+
+			&.smaller .letter-block {
+				width: 6vh;
+				height: 6vh;
+
+				.big-letter {
+					font-size: 2vh;
+				}
+
+				.value {
+					font-size: 1.5vh;
+				}
+			}
+
+			&.smallest .letter-block {
+				width: 4vh;
+				height: 4vh;
+
+				.big-letter {
+					font-size: 1.5vh;
+				}
+
+				.value {
+					font-size: 1.5vh;
+
+					left: 0;
+					right: 0;
+					bottom: -2.5vh;
+					text-align: center;
+
+					margin: auto;
+				}
+			}
+		}
+
+		.multiplier-row {
+			position: relative;
+			width: 100%;
+			height: 8vh;
+
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+
+			&.smaller {
+				& > div {
+					width: 6vh;
+					height: 6vh;
+				}
+			}
+
+			&.smallest {
+				& > div {
+					width: 4vh;
+					height: 4vh;
+				}
+			}
+
+			& > div {
+				position: relative;
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				width: 8vh;
+				height: 8vh;
+
+				@include absolute-bg;
+
+				& > span {
+					position: relative;
+					font-size: 3vh;
+				}
+			}
+		}
+	}
+
+	.calculated-score {
+		text-align: center;
+		font-size: 3vh;
+
+		margin: 5vh 0;
+
+		& > .big-score {
+			font-family: Nexa;
+			font-weight: bold;
+			font-size: 4vh;
+		}
+	}
+
+	& > button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		height: 10vh;
+
+		& > img {
+			position: absolute;
+			height: 10vh;
+		}
+
+		& > span {
+			position: relative;
+			font-size: 3vh;
 		}
 	}
 }

@@ -24,10 +24,11 @@ export default class Vocabulary extends React.Component<IProps> {
 
 					<div className="scrollable-area">
 						{
-							!player.wordList.length ?
+							!player.wordList.length ? (
 								<div className="empty-list">
 									(Empty list)
-							</div> :
+								</div>
+							) : (
 								player.wordList.map(word =>
 									<div className="word">
 										<div>
@@ -44,6 +45,7 @@ export default class Vocabulary extends React.Component<IProps> {
 										</div>
 									</div>
 								)
+							)
 						}
 					</div>
 				</div>
