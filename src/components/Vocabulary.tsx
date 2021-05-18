@@ -1,7 +1,9 @@
 import React from "react";
-import { Player } from "../modules/common";
+
 import DarkCyanButton from "./DarkCyanButton";
-import LetterChain from "./LetterChain";
+import TransparentButton from "./TransparentButton";
+
+import { getWordValue, Player } from "../modules/common";
 
 interface IProps {
 	backToStart: () => void;
@@ -14,14 +16,36 @@ export default class Vocabulary extends React.Component<IProps> {
 		const { addNewWord: addWord, backToStart, player } = this.props;
 
 		return (
-			<div>
-				<div className="scrollable-area">
-					{
-						// ["DOLOREM", "IPSUM", "DOLOR", "SIT"]
-						player.wordList.map((word, idx) =>
-							<LetterChain key={idx} word={word} />
-						)
-					}
+			<div className="vocabulary-list">
+				<div className="word-container">
+					<img className="bg"
+						src="/assets/img/vocabulary_list/bg.png"
+						alt="bg" />
+
+					<div className="scrollable-area">
+						{
+							!player.wordList.length ?
+								<div className="empty-list">
+									(Empty list)
+							</div> :
+								player.wordList.map(word =>
+									<div className="word">
+										<div>
+											{word}
+										</div>
+
+										<div className="right-group">
+											{getWordValue(word)}
+
+											<button className="btn-transparent">
+												{/* Todo: delete button */}
+												<img src="/assets/img/vocabulary_list/delete_button.png" alt="delete" />
+											</button>
+										</div>
+									</div>
+								)
+						}
+					</div>
 				</div>
 
 				<DarkCyanButton
@@ -29,7 +53,7 @@ export default class Vocabulary extends React.Component<IProps> {
 					label="Add Word"
 				/>
 
-				<DarkCyanButton
+				<TransparentButton
 					clickEvent={backToStart}
 					label="Done"
 				/>

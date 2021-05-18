@@ -11,8 +11,8 @@ export default class DarkCyanButton extends React.PureComponent<IProps> {
 		return (
 			<button
 				onClick={clickEvent}
-				className="btn-transparent btn-dark-cyan">
-				<img src="/assets/img/dark_cyan_button.png" alt="dark cyan button" />
+				className="btn-transparent btn-transparent-bg">
+				<img src="/assets/img/transparent_button.png" alt="transparent button" />
 				<span>{ label }</span>
 			</button>
 		);

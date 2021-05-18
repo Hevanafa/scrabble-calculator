@@ -89,13 +89,18 @@ export default class App extends React.Component<{}, IState> {
 	insertNewWord(e: any) {
 		const letters = e.currentTarget.getAttribute("letters");
 
-		if (!letters)
+		if (!letters) {
+			this.setState({
+				isAddingNewWord: false
+			});
+
 			return;
+		}
 
 		const { players, selectedPlayerIdx } = this.state;
 		const player = players[selectedPlayerIdx];
 
-		player.wordList.push(letters.replace(/,/g, ""));
+		player.wordList.push(letters.replace(/,/g, "").substr(0, 15));
 
 		console.log("iNW");
 
@@ -144,7 +149,7 @@ export default class App extends React.Component<{}, IState> {
 								{
 									this.state.players.map((player, idx) =>
 										player.getName() ?
-											<div className="player">
+											<div key={idx} className="player">
 												<div>
 													{player.getName() || `Player ${idx + 1}`}
 												</div>

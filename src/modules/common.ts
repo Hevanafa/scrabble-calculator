@@ -27,6 +27,11 @@ class Player {
 	}
 }
 
+/**
+ * 
+ * @param letter The letter in uppercase
+ * @returns 
+ */
 function getLetterValue(letter: string): number {
 	if ("AEIOULNSTR".includes(letter))
 		return 1;
@@ -45,7 +50,20 @@ function getLetterValue(letter: string): number {
 	return 0;
 }
 
+function getWordValue(word: string) {
+	if (!word)
+		return 0;
+
+	return word
+		.toUpperCase()
+		.split("")
+		.map(letter =>
+			getLetterValue(letter)
+		).reduce((a, b) => a + b);
+}
+
 export {
 	Player,
-	getLetterValue
+	getLetterValue,
+	getWordValue
 }
