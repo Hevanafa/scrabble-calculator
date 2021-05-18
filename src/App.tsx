@@ -87,7 +87,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	insertNewWord(e: any) {
-		const letters = e.currentTarget.getAttribute("letters");
+		const letters = e.currentTarget.getAttribute("letters") as string,
+			multipliers = e.currentTarget.getAttribute("multipliers") as string;
 
 		if (!letters) {
 			this.setState({
@@ -100,7 +101,10 @@ export default class App extends React.Component<{}, IState> {
 		const { players, selectedPlayerIdx } = this.state;
 		const player = players[selectedPlayerIdx];
 
-		player.wordList.push(letters.replace(/,/g, "").substr(0, 15));
+		player.addWord(
+			letters.replace(/,/g, "").substr(0, 15),
+			multipliers.split(",").map(n => Number(n))
+		)
 
 		console.log("iNW");
 

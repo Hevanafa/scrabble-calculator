@@ -113,7 +113,10 @@ export default class NewWord extends React.Component<IProps, IState> {
 				</div>
 
 				<button
-					{...{ letters: (this.state.letters || "") + "" }}
+					{...{
+						letters: (this.state.letters || []) + "",
+						multipliers: (this.state.multipliers || []) + ""
+					}}
 					onClick={this.props.insertWord}
 					className="btn-transparent btn-dark-cyan">
 					<img src="/assets/img/dark_cyan_button.png" alt="button" />

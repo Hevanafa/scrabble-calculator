@@ -3,7 +3,7 @@ import React from "react";
 import DarkCyanButton from "./DarkCyanButton";
 import TransparentButton from "./TransparentButton";
 
-import { getWordValue, Player } from "../modules/common";
+import { getWordWithMultiplierValue, Player } from "../modules/common";
 
 interface IProps {
 	backToStart: () => void;
@@ -13,7 +13,7 @@ interface IProps {
 }
 export default class Vocabulary extends React.Component<IProps> {
 	render() {
-		const { addNewWord: addWord, backToStart, player } = this.props;
+		const { addNewWord, backToStart, player } = this.props;
 
 		return (
 			<div className="vocabulary-list">
@@ -29,14 +29,14 @@ export default class Vocabulary extends React.Component<IProps> {
 									(Empty list)
 								</div>
 							) : (
-								player.wordList.map(word =>
+								player.wordList.map((word, idx) =>
 									<div className="word">
 										<div>
 											{word}
 										</div>
 
 										<div className="right-group">
-											{getWordValue(word)}
+											{getWordWithMultiplierValue(word, player.multipliers[idx])}
 
 											<button className="btn-transparent">
 												{/* Todo: delete button */}
@@ -51,7 +51,7 @@ export default class Vocabulary extends React.Component<IProps> {
 				</div>
 
 				<DarkCyanButton
-					clickEvent={addWord}
+					clickEvent={addNewWord}
 					label="Add Word"
 				/>
 
