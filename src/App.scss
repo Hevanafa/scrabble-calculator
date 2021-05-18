@@ -1,3 +1,80 @@
+@font-face {
+	font-family: Nexa;
+	font-weight: bold;
+	src: url("./assets/fonts/NexaBlack.otf");
+}
+
+@font-face {
+	font-family: Nexa;
+	font-weight: normal;
+	src: url("./assets/fonts/NexaXBold.otf");
+}
+
+.App {
+	font-family: Nexa;
+	background: #0b4d3c;
+	color: white;
+
+	display: flex;
+	flex-direction: column;
+	flex-basis: 100%;
+
+	& > .lighter-container {
+		flex-shrink: 1;
+	}
+}
+
+.header-area {
+	padding: 2vh 5vw;
+
+	display: flex;
+	justify-content: space-between;
+
+	& > h1 {
+		font-size: 4.5vh;
+	}
+
+	.right-group {
+		display: flex;
+
+		button > img {
+			margin: 0 1vw;
+			height: 8vh;
+		}
+	}
+}
+
+.btn-transparent {
+	background: transparent;
+	border: none;
+	margin: 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+.btn-dark-cyan {
+	position: relative;
+	font-family: Nexa;
+
+	& > img {
+		height: 11vh;
+	}
+
+	& > span {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+
+		width: fit-content;
+		height: fit-content;
+
+		font-size: 3vh;
+	}
+}
+
 .btn {
 	position: relative;
 
@@ -56,10 +133,60 @@
 	}
 }
 
-.start-menu {
-	& > div {
+.lighter-container {
+	background: #02825f;
+	border-top-left-radius: 40px;
+	border-top-right-radius: 40px;
+	padding: 3vh 6vw;
+}
+
+.start-player-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.player {
+		width: 100%;
+
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+
+		font-size: 3vh;
+
+		.right-group {
+			display: flex;
+			align-items: center;
+
+		}
+
+		button {
+			margin-left: 1vw;
+	
+			& > img {
+				height: 6vh;
+			}
+		}
+	}
+}
+
+.player-manager {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	& > .player {
+		width: 100%;
+
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		font-size: 3vh;
+
+		button > img {
+			height: 6vh;
+		}
 	}
 }
 
@@ -105,4 +232,8 @@
 			height: 40px;
 		}
 	}
+}
+
+.footer {
+	text-align: center;
 }

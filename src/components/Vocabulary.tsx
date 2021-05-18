@@ -1,5 +1,6 @@
 import React from "react";
 import { Player } from "../modules/common";
+import DarkCyanButton from "./DarkCyanButton";
 import LetterChain from "./LetterChain";
 
 interface IProps {
@@ -14,10 +15,6 @@ export default class Vocabulary extends React.Component<IProps> {
 
 		return (
 			<div>
-				<h1>
-					{player.getName() || `Player ${player.id + 1}`}'s Vocabulary
-				</h1>
-
 				<div className="scrollable-area">
 					{
 						// ["DOLOREM", "IPSUM", "DOLOR", "SIT"]
@@ -27,13 +24,15 @@ export default class Vocabulary extends React.Component<IProps> {
 					}
 				</div>
 
-				<button onClick={addWord}>
-					Add Word
-				</button>
+				<DarkCyanButton
+					clickEvent={addWord}
+					label="Add Word"
+				/>
 
-				<button onClick={backToStart}>
-					Done
-				</button>
+				<DarkCyanButton
+					clickEvent={backToStart}
+					label="Done"
+				/>
 			</div>
 		);
 	}

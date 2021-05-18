@@ -1,5 +1,8 @@
 import React from "react";
 import "./App.scss";
+import DarkCyanButton from "./components/DarkCyanButton";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 import NewWord from "./components/NewWord";
 import Vocabulary from "./components/Vocabulary";
 import { Player } from "./modules/common";
@@ -9,7 +12,7 @@ interface IState {
 
 	isPlayerManagerVisible: boolean;
 
-	isVocabularyVisible: boolean;
+	isVocabularyListVisible: boolean;
 	selectedPlayerIdx: number;
 
 	isAddingNewWord: boolean;
@@ -23,7 +26,7 @@ export default class App extends React.Component<{}, IState> {
 
 			isPlayerManagerVisible: false,
 
-			isVocabularyVisible: false,
+			isVocabularyListVisible: false,
 			selectedPlayerIdx: 0,
 
 			isAddingNewWord: false,
@@ -53,22 +56,26 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	changePlayerName(e: any) {
-		const idx = Number(e.target?.getAttribute("idx"));
-		
+		const idx = Number(e.currentTarget?.getAttribute("idx"));
+
 		const { players } = this.state;
-		const newName = prompt(`Enter the new name for Player ${idx}:`, players[idx].getName());
-		players[idx].setName(newName || "");
+		const newName = prompt(`Enter the new name for Player ${idx+1}:`, players[idx].getName());
+
+		if (newName === null)
+			return;
+
+		players[idx].setName(newName);
 
 		this.setState({ players });
 	}
 
 	showVocabularyList(e: any) {
-		const idx = Number(e.target?.getAttribute("idx"));
+		const idx = Number(e.currentTarget?.getAttribute("idx"));
 
 		console.log("sVL " + idx);
 
 		this.setState({
-			isVocabularyVisible: true,
+			isVocabularyListVisible: true,
 			selectedPlayerIdx: idx
 		});
 	}
@@ -80,7 +87,10 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	insertNewWord(e: any) {
-		const letters = e.target.getAttribute("letters");
+		const letters = e.currentTarget.getAttribute("letters");
+
+		if (!letters)
+			return;
 
 		const { players, selectedPlayerIdx } = this.state;
 		const player = players[selectedPlayerIdx];
@@ -104,104 +114,112 @@ export default class App extends React.Component<{}, IState> {
 		for (var player of players)
 			player.wordList = [];
 
-		this.setState({players});
+		this.setState({ players });
 	}
 
 	backToStart() {
 		this.setState({
 			isPlayerManagerVisible: false,
-			isVocabularyVisible: false,
+			isVocabularyListVisible: false,
 		});
 	}
+
+	isStartPage() {
+		return !this.state.isPlayerManagerVisible &&
+			!this.state.isVocabularyListVisible &&
+			!this.state.isAddingNewWord;
+	}
+
+	noop() { }
 
 	render() {
 		return (
 			<div className="App">
-				<h1>Scrabble Calculator</h1>
+				<Header {...this.state} />
 
-				{
-					!this.state.isPlayerManagerVisible &&
-					!this.state.isVocabularyVisible &&
-					!this.state.isAddingNewWord ?
-						<div className="start-menu">
-						{
-							this.state.players.map((player, idx) =>
-								player.getName() ?
-								<div>
-									<div>
-										{player.getName() || `Player ${idx + 1}`} 
-									</div>
-									<div className="right-group">
-										<span>
-											{player.getComputedScore()}
-										</span>
-										<button
-											{...{ idx: idx }}
-											onClick={this.showVocabularyList.bind(this)}>
-											➕
-										</button>
-									</div>
-								</div> : null
-							)
-						}
-
-							<button onClick={this.showPlayerManager.bind(this)}>
-								Manage Players
-							</button>
-
-							<button onClick={this.resetScores.bind(this)}>
-								Reset Scores
-							</button>
-						</div>
-					: null
-				}
-
-				{
-					this.state.isPlayerManagerVisible ?
-						<div>
-							<h1>Players</h1>
-
-							<ol>
+				<div className="lighter-container">
+					{
+						this.isStartPage() ?
+							<div className="start-player-list">
 								{
 									this.state.players.map((player, idx) =>
-										<li>
-											<div>
+										player.getName() ?
+											<div className="player">
+												<div>
+													{player.getName() || `Player ${idx + 1}`}
+												</div>
+												<div className="right-group">
+													<span>
+														{player.getComputedScore()}
+													</span>
+
+													<button
+														className="btn-transparent"
+														{...{ idx: idx }}
+														onClick={this.showVocabularyList.bind(this)}>
+														<img src="/assets/img/red_plus_button.png" alt="Red Plus" />
+													</button>
+												</div>
+											</div> : null
+									)
+								}
+
+								<DarkCyanButton
+									clickEvent={this.showPlayerManager.bind(this)}
+									label="Manage Players" />
+
+								<DarkCyanButton
+									clickEvent={this.noop}
+									label="Reset Scores"
+								/>
+							</div>
+							: null
+					}
+
+					{
+						this.state.isPlayerManagerVisible ?
+							<div className="player-manager">
+								{
+									this.state.players.map((player, idx) =>
+										<div className="player">
+											<div className="left-group">
+												{idx + 1 + ". "}
 												{player.getName() || `Player ${idx + 1}`}
 											</div>
 
-											<button {...{idx}} onClick={this.changePlayerName.bind(this)}>
-												✏
+											<button
+												className="btn-transparent"
+												{...{ idx }}
+												onClick={this.changePlayerName.bind(this)}>
+												<img src="/assets/img/player_manager/edit_button.png" alt="edit" />
 											</button>
-										</li>
+										</div>
 									)
 								}
-							</ol>
 
-							<button onClick={this.backToStart.bind(this)}>
-								Done
-							</button>
-						</div>
-						: null
-				}
+								<DarkCyanButton
+									clickEvent={this.backToStart.bind(this)}
+									label="Done"
+								/>
+							</div>
+							: null
+					}
 
-				{
-					this.state.isAddingNewWord ?
-					<NewWord
-						player={this.state.players[this.state.selectedPlayerIdx]}
-						insertWord={this.insertNewWord.bind(this)} />
-					: this.state.isVocabularyVisible ?
-					<Vocabulary
-						player={this.state.players[this.state.selectedPlayerIdx]}
-						addNewWord={this.addNewWord.bind(this)}
-						backToStart={this.backToStart.bind(this)}
-						/> :
-						null
-				}
+					{
+						this.state.isAddingNewWord ?
+							<NewWord
+								player={this.state.players[this.state.selectedPlayerIdx]}
+								insertWord={this.insertNewWord.bind(this)} />
+							: this.state.isVocabularyListVisible ?
+								<Vocabulary
+									player={this.state.players[this.state.selectedPlayerIdx]}
+									addNewWord={this.addNewWord.bind(this)}
+									backToStart={this.backToStart.bind(this)}
+								/> :
+								null
+					}
 
-				<div className="footer">
-					Graphics design: T3CH_Kitsu<br />
-					Programming: Hevanafa<br />
-					2021, T3CH_Kitsu &amp; Hevanafa<br />
+					{this.isStartPage() ? <Footer /> : null}
 				</div>
 			</div>
 		);

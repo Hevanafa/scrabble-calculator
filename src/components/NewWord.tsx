@@ -24,8 +24,11 @@ export default class NewWord extends React.Component<IProps, IState> {
 	showWordPrompt() {
 		const newWord = prompt("Set the new word", this.state.letters.join(""));
 
+		if (newWord === null)
+			return;
+
 		this.setState({
-			letters: (newWord?.toUpperCase().match(/[A-Z]/g)||[])
+			letters: (newWord.toUpperCase().match(/[A-Z]/g)||[])
 		});
 	}
 
@@ -40,8 +43,6 @@ export default class NewWord extends React.Component<IProps, IState> {
 	render() {
 		return (
 			<div className="add-new-word">
-				<h1>Add New Word for { this.props.player.getName() }</h1>
-
 				<div>
 					<div>Word multiplier slot</div>
 
@@ -63,8 +64,10 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 				<button
 					{...{ letters: (this.state.letters || "") + "" }}
-					onClick={this.props.insertWord}>
-						Done
+					onClick={this.props.insertWord}
+					className="btn-transparent btn-dark-cyan">
+					<img src="/assets/img/dark_cyan_button.png" alt="button" />
+					Done
 				</button>
 
 				<div>
