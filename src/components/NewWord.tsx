@@ -2,7 +2,7 @@ import React from "react";
 
 import LetterChain from "./LetterChain";
 
-import { Word, Player } from "../modules/common";
+import { Word, Player, getAssetImgPath } from "../modules/common";
 
 interface IProps {
 	insertWord: (e: any) => void;
@@ -69,7 +69,7 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 	getComputedScore = () => this.state.word.getWordValue(true);
 
-	readonly imgPath = "/assets/img/add_new_word";
+	readonly imgPath = getAssetImgPath + "/add_new_word";
 
 	render() {
 		const {word} = this.state,
@@ -81,7 +81,7 @@ export default class NewWord extends React.Component<IProps, IState> {
 			<div className="add-new-word">
 				<div className="new-word-container">
 					<img className="bg"
-						src="/assets/img/vocabulary_list/bg.png"
+						src={getAssetImgPath + "/vocabulary_list/bg.png"}
 						alt="bg" />
 					
 					<div className="word-multiplier">
@@ -153,7 +153,8 @@ export default class NewWord extends React.Component<IProps, IState> {
 					}}
 					onClick={this.props.insertWord}
 					className="btn-transparent btn-dark-cyan">
-					<img src="/assets/img/dark_cyan_button.png" alt="button" />
+					<img src={getAssetImgPath + "/dark_cyan_button.png"}
+						alt="button" />
 					<span>Done</span>
 				</button>
 			</div>

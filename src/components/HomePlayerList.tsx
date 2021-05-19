@@ -1,5 +1,6 @@
 import React from "react";
-import { Player } from "../modules/common";
+
+import { getAssetImgPath, Player } from "../modules/common";
 
 interface IProps {
 	showVocabularyList: (e: any) => void;
@@ -28,7 +29,8 @@ export default class HomePlayerList extends React.Component<IProps> {
 										className="btn-transparent"
 										{...{ idx: idx }}
 										onClick={showVocabularyList}>
-										<img src="/assets/img/red_plus_button.png" alt="Red Plus" />
+										<img src={getAssetImgPath + "/red_plus_button.png"}
+											alt="Red Plus" />
 									</button>
 								</div>
 							</div>

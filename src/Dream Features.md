@@ -11,9 +11,15 @@
 ## Dream Features
 
 The features that can be added but not included in the core app.
-- Load & save game data: the list of players and the words
 
+- Change theme
+- Functional or contextual help button
+- Load & save game data: the list of players and the words
 - Scrabble Dictionary to see if the inputted word is valid
+
+Sound Effects:
+- On button click
+- Turn off sounds button
 
 Vocabulary List:
 - Show each letter & word multipliers
