@@ -1,8 +1,8 @@
 class Player {
-	readonly id: number;
+	public readonly id: number;
 	private name = "";
 
-	wordList: Word[];
+	public wordList: Word[];
 
 	constructor(id: number) {
 		this.id = id;
@@ -98,7 +98,14 @@ class Word {
 	)
 }
 
+const clickSFX = new Audio("/assets/sounds/click.wav");
+function playClickSound() {
+	clickSFX.play();
+}
+
 export {
 	Player,
-	Word
+	Word,
+	
+	playClickSound
 }

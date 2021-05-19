@@ -2,6 +2,16 @@
 @import "vocabulary-list.scss";
 @import "letter-chain.scss";
 
+// CSS reset
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  outline: none;
+}
+
 .App {
 	font-family: Nexa;
 	background: #0b4d3c;

@@ -5,12 +5,12 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import NewWord from "./components/NewWord";
 import Vocabulary from "./components/Vocabulary";
-
-import { Player } from "./modules/common";
-
-import "./App.scss";
 import PlayerManager from "./components/PlayerManager";
 import HomePlayerList from "./components/HomePlayerList";
+
+import { playClickSound, Player } from "./modules/common";
+
+import "./App.scss";
 
 interface IState {
 	players: Player[];
@@ -67,12 +67,16 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	showPlayerManager() {
+		playClickSound();
+		
 		this.setState({
 			isPlayerManagerVisible: true
 		});
 	}
 
 	changePlayerName(e: any) {
+		playClickSound();
+
 		const idx = Number(e.currentTarget?.getAttribute("idx"));
 
 		const { players } = this.state;
@@ -87,9 +91,11 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	showVocabularyList(e: any) {
+		playClickSound();
+
 		const idx = Number(e.currentTarget.getAttribute("idx"));
 
-		console.log("sVL " + idx);
+		// console.log("sVL " + idx);
 
 		this.setState({
 			isVocabularyListVisible: true,
@@ -98,6 +104,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	addNewWord() {
+		playClickSound();
+
 		this.setState({
 			isAddingNewWord: true
 		});
@@ -134,6 +142,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	deleteWordPrompt(e: any) {
+		playClickSound();
+
 		const playerIdx = Number(e.currentTarget.getAttribute("player-idx")),
 			wordIdx = Number(e.currentTarget.getAttribute("idx"));
 
@@ -149,6 +159,8 @@ export default class App extends React.Component<{}, IState> {
 
 
 	resetScores() {
+		playClickSound();
+
 		if (!window.confirm("Reset scores?"))
 			return;
 
@@ -161,6 +173,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	backToStart() {
+		playClickSound();
+
 		this.setState({
 			isPlayerManagerVisible: false,
 			isVocabularyListVisible: false,
