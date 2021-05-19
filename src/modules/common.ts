@@ -4,10 +4,6 @@ class Player {
 
 	wordList: Word[];
 
-	// Todo: consolidate words into a class
-	// wordList: string[] = [];
-	// multipliers: number[][] = [];
-
 	constructor(id: number) {
 		this.id = id;
 		this.wordList = [];
@@ -25,14 +21,6 @@ class Player {
 			wordMultiplier,
 			letterMultiplierAry));
 	}
-
-	// public getComputedScore() {
-	// 	return this.wordList.map((word, wordIdx) =>
-	// 		word.split("").map((c, idx) =>
-	// 			getLetterValue(c) * this.multipliers[wordIdx][idx]
-	// 		).reduce((a, b) => a + b)
-	// 	).reduce((a, b) => a + b, 0);
-	// }
 
 	public getComputedScore = () => this.wordList.map(word =>
 		word.getWordValue(true)
@@ -82,11 +70,10 @@ class Word {
 		"JX".includes(letter) ? 8 :
 		"QZ".includes(letter) ? 10 : 0;
 
-	getWordValue(withMultipliers: boolean) {
-		if (!this.word)
-			return 0;
+	public getWordValue = (withMultipliers: boolean) =>
+		!this.word ? 0 :
 
-		return withMultipliers ? (
+		withMultipliers ? (
 			this.word
 				.toUpperCase()
 				.split("")
@@ -102,7 +89,6 @@ class Word {
 					Word.getLetterValue(letter)
 				).reduce((a, b) => a + b)
 		);
-	}
 
 	static getLetterChainClass = (word: string) => (
 		!word ? " empty" :

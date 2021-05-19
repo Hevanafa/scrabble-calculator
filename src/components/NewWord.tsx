@@ -1,10 +1,12 @@
 import React from "react";
-import { Word, Player } from "../modules/common";
+
 import LetterChain from "./LetterChain";
+
+import { Word, Player } from "../modules/common";
 
 interface IProps {
 	insertWord: (e: any) => void;
-	readonly player: Player;
+	player: Player;
 }
 
 interface IState {
@@ -14,19 +16,35 @@ export default class NewWord extends React.Component<IProps, IState> {
 	constructor(props: any) {
 		super(props);
 
+		this.bindFunctions();
+
 		this.state = {
 			word: new Word()
 		};
 	}
 
-	// Todo: multipliers don't get passed to the parent component
+	bindFunctions() {
+		this.changeWordMultiplier = this.changeWordMultiplier.bind(this);
+		this.changeLetterMultiplier = this.changeLetterMultiplier.bind(this);
+		this.showWordPrompt = this.showWordPrompt.bind(this);
+	}
+
+	changeWordMultiplier() {
+		const {word} = this.state;
+		const actualMult = word.getWordMultiplier();
+
+		word.setWordMultiplier(
+			actualMult === 1 ? 2 :
+			actualMult === 2 ? 3 : 1
+		);
+
+		this.setState({word});
+	}
 
 	changeLetterMultiplier(e: any) {
 		const idx = Number(e.currentTarget.getAttribute("idx"));
 		const {word} = this.state;
 		const actualMult = word.getLetterMultiplier(idx);
-
-		// const {multipliers} = this.state;
 
 		word.setLetterMultiplier(idx, 
 			actualMult === 1 ? 2 :
@@ -51,23 +69,13 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 	getComputedScore = () => this.state.word.getWordValue(true);
 
-	// getComputedScore() {
-	// 	const { letters, multipliers } = this.state;
-
-	// 	if (!letters.length)
-	// 		return 0;
-
-	// 	return letters.map((letter, idx) =>
-	// 		Word.getLetterValue(letter) * multipliers[idx]
-	// 	).reduce((a, b) => a + b);
-	// }
-
-
 	readonly imgPath = "/assets/img/add_new_word";
 
 	render() {
-		const {word} = this.state;
-		const letterChainClass = Word.getLetterChainClass(word.getWord());
+		const {word} = this.state,
+			actualWord = word.getWord(),
+			wordMultiplier = word.getWordMultiplier(),
+			letterChainClass = Word.getLetterChainClass(word.getWord());
 
 		return (
 			<div className="add-new-word">
@@ -77,23 +85,40 @@ export default class NewWord extends React.Component<IProps, IState> {
 						alt="bg" />
 					
 					<div className="word-multiplier">
-						<button className="btn-transparent">
-							<img src={this.imgPath + "/empty_word_multiplier.png"} alt="word multiplier" />
-							<span>N/A</span>
+						<button className="btn-transparent"
+							onClick={this.changeWordMultiplier}>
+						{
+							!actualWord ? (
+							<>
+								<img src={this.imgPath + "/empty_word_multiplier.png"} alt="word multiplier" />
+								<span>N/A</span>
+							</>
+							) : wordMultiplier === 1 ? (
+							<>
+								<img src={this.imgPath + "/empty_word_multiplier.png"} alt="word multiplier" />
+								<span></span>
+							</>
+							) : (
+							<>
+								<img src={this.imgPath + `/${wordMultiplier}x_word_multiplier.png`} alt="word multiplier" />
+								<span>{ wordMultiplier }×</span>
+							</>
+							)
+						}
 						</button>
 					</div>
 
 					<LetterChain
 						word={word}
-						clickEvent={this.showWordPrompt.bind(this)}
+						clickEvent={this.showWordPrompt}
 					/>
 
 					<div className={"multiplier-row" + letterChainClass}>
 						{
-							word.getAllLetterMultipliers().slice(0, word.getWord().length).map((quantity, idx) =>
+							word.getAllLetterMultipliers().slice(0, actualWord.length).map((quantity, idx) =>
 								<div key={idx}
 									{...{idx: idx}}
-									onClick={this.changeLetterMultiplier.bind(this)}>
+									onClick={this.changeLetterMultiplier}>
 									<img className="bg"
 										src={
 											this.imgPath +
@@ -122,8 +147,8 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 				<button
 					{...{
-						letters: (word.getWord().split("") || []) + "",
-						"word-multiplier": word.getWordMultiplier(),
+						letters: (actualWord.split("") || []) + "",
+						"word-multiplier": wordMultiplier,
 						"letter-multipliers": (word.getAllLetterMultipliers() || []) + ""
 					}}
 					onClick={this.props.insertWord}

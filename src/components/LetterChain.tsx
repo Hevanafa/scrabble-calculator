@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Word } from "../modules/common";
 
 interface IProps {

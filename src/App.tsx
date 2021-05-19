@@ -1,11 +1,14 @@
 import React from "react";
-import "./App.scss";
+
 import DarkCyanButton from "./components/DarkCyanButton";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import NewWord from "./components/NewWord";
 import Vocabulary from "./components/Vocabulary";
+
 import { Player } from "./modules/common";
+
+import "./App.scss";
 
 interface IState {
 	players: Player[];
@@ -30,7 +33,6 @@ export default class App extends React.Component<{}, IState> {
 			selectedPlayerIdx: 0,
 
 			isAddingNewWord: false,
-			// Todo: add a new word screen
 		};
 	}
 
