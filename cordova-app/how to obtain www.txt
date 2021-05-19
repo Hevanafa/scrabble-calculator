@@ -1,0 +1,11 @@
+> run this in scrabble-calculator (up one level of this folder):
+yarn build:release
+
+> wait until the build process is finished
+> rename `build` folder to `www`
+> move the `www` folder here
+
+> finally, run:
+cordova build android
+
+Important: if the build fails, make sure you've installed Android Studio & Android SDK correctly, and also set the system paths correctly

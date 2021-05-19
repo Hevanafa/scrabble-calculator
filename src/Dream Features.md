@@ -12,6 +12,7 @@
 
 The features that can be added but not included in the core app.
 
+- Listen to back button event
 - Change theme
 - Functional or contextual help button
 - Load & save game data: the list of players and the words

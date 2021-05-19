@@ -98,12 +98,12 @@ class Word {
 	)
 }
 
-const clickSFX = new Audio(window.location.origin + "/assets/sounds/click.wav");
+const clickSFX = new Audio("./assets/sounds/click.wav");
 function playClickSound() {
 	clickSFX.play();
 }
 
-const getAssetImgPath = window.location.origin + "/assets/img";
+const getAssetImgPath = "./assets/img";
 
 export {
 	Player,

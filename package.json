@@ -21,6 +21,7 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
+		"build:release": "set \"GENERATE_SOURCEMAP=false\" && yarn build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
 	},
