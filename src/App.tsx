@@ -70,7 +70,7 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	showVocabularyList(e: any) {
-		const idx = Number(e.currentTarget?.getAttribute("idx"));
+		const idx = Number(e.currentTarget.getAttribute("idx"));
 
 		console.log("sVL " + idx);
 
@@ -88,7 +88,8 @@ export default class App extends React.Component<{}, IState> {
 
 	insertNewWord(e: any) {
 		const letters = e.currentTarget.getAttribute("letters") as string,
-			multipliers = e.currentTarget.getAttribute("multipliers") as string;
+			multipliers = e.currentTarget.getAttribute("multipliers") as string,
+			wordMultiplier = e.currentTarget.getAttribute("word-multiplier") as string;
 
 		if (!letters) {
 			this.setState({
@@ -103,6 +104,7 @@ export default class App extends React.Component<{}, IState> {
 
 		player.addWord(
 			letters.replace(/,/g, "").substr(0, 15),
+			Number(wordMultiplier),
 			multipliers.split(",").map(n => Number(n))
 		)
 

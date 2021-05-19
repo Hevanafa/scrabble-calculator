@@ -3,7 +3,7 @@ import React from "react";
 import DarkCyanButton from "./DarkCyanButton";
 import TransparentButton from "./TransparentButton";
 
-import { getWordWithMultiplierValue, Player } from "../modules/common";
+import { Player } from "../modules/common";
 
 interface IProps {
 	backToStart: () => void;
@@ -36,7 +36,8 @@ export default class Vocabulary extends React.Component<IProps> {
 										</div>
 
 										<div className="right-group">
-											{getWordWithMultiplierValue(word, player.multipliers[idx])}
+											{ player.wordList[idx].getWordValue(true) } 
+											{/* getWordWithMultiplierValue(word, player.multipliers[idx]) */}
 
 											<button className="btn-transparent">
 												{/* Todo: delete button */}

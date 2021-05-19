@@ -1,5 +1,5 @@
 import React from "react";
-import { getLetterChainClass, getLetterValue, Player } from "../modules/common";
+import { Word, Player } from "../modules/common";
 import LetterChain from "./LetterChain";
 
 interface IProps {
@@ -8,16 +8,14 @@ interface IProps {
 }
 
 interface IState {
-	letters: string[];
-	multipliers: number[];
+	word: Word;
 }
 export default class NewWord extends React.Component<IProps, IState> {
 	constructor(props: any) {
 		super(props);
 
 		this.state = {
-			letters: [],
-			multipliers: [...new Array(15)].map(_ => 1)
+			word: new Word()
 		};
 	}
 
@@ -25,42 +23,52 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 	changeLetterMultiplier(e: any) {
 		const idx = Number(e.currentTarget.getAttribute("idx"));
-		const {multipliers} = this.state;
+		const {word} = this.state;
+		const actualMult = word.getLetterMultiplier(idx);
 
-		multipliers[idx] = (
-			multipliers[idx] === 1 ? 2 :
-			multipliers[idx] === 2 ? 3 : 1
+		// const {multipliers} = this.state;
+
+		word.setLetterMultiplier(idx, 
+			actualMult === 1 ? 2 :
+			actualMult === 2 ? 3 : 1
 		);
 
-		this.setState({multipliers});
+		this.setState({word});
 	}
 
 	showWordPrompt() {
-		const newWord = prompt("Set the new word", this.state.letters.join(""));
+		const newWord = prompt("Set the new word", this.state.word.getWord());
 
 		if (newWord === null)
 			return;
 
-		this.setState({
-			letters: (newWord.toUpperCase().match(/[A-Z]/g)||[]).slice(0, 15)
-		});
+		const {word} = this.state;
+
+		word.setWord((newWord.toUpperCase().match(/[A-Z]/g)||[]).slice(0, 15).join(""));
+
+		this.setState({word});
 	}
 
-	getComputedScore() {
-		const { letters, multipliers } = this.state;
+	getComputedScore = () => this.state.word.getWordValue(true);
 
-		if (!letters.length)
-			return 0;
+	// getComputedScore() {
+	// 	const { letters, multipliers } = this.state;
 
-		return letters.map((letter, idx) =>
-			getLetterValue(letter) * multipliers[idx]
-		).reduce((a, b) => a + b);
-	}
+	// 	if (!letters.length)
+	// 		return 0;
+
+	// 	return letters.map((letter, idx) =>
+	// 		Word.getLetterValue(letter) * multipliers[idx]
+	// 	).reduce((a, b) => a + b);
+	// }
 
 
 	readonly imgPath = "/assets/img/add_new_word";
 
 	render() {
+		const {word} = this.state;
+		const letterChainClass = Word.getLetterChainClass(word.getWord());
+
 		return (
 			<div className="add-new-word">
 				<div className="new-word-container">
@@ -76,13 +84,13 @@ export default class NewWord extends React.Component<IProps, IState> {
 					</div>
 
 					<LetterChain
-						word={this.state.letters.join("")}
+						word={word}
 						clickEvent={this.showWordPrompt.bind(this)}
 					/>
 
-					<div className={"multiplier-row" + getLetterChainClass(this.state.letters.join(""))}>
+					<div className={"multiplier-row" + letterChainClass}>
 						{
-							this.state.multipliers.slice(0, this.state.letters.length).map((quantity, idx) =>
+							word.getAllLetterMultipliers().slice(0, word.getWord().length).map((quantity, idx) =>
 								<div key={idx}
 									{...{idx: idx}}
 									onClick={this.changeLetterMultiplier.bind(this)}>
@@ -114,8 +122,9 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 				<button
 					{...{
-						letters: (this.state.letters || []) + "",
-						multipliers: (this.state.multipliers || []) + ""
+						letters: (word.getWord().split("") || []) + "",
+						multipliers: (word.getAllLetterMultipliers() || []) + "",
+						wordMultiplier: (word.getWordMultiplier())
 					}}
 					onClick={this.props.insertWord}
 					className="btn-transparent btn-dark-cyan">

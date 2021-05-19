@@ -1,10 +1,10 @@
 import React from "react";
-import { getLetterChainClass, getLetterValue } from "../modules/common";
+import { Word } from "../modules/common";
 
 interface IProps {
 	clickEvent: (e: any) => void;
 
-	word: string;
+	word: Word;
 }
 export default class LetterChain extends React.Component<IProps> {
 	render() {
@@ -12,9 +12,10 @@ export default class LetterChain extends React.Component<IProps> {
 
 		return (
 			this.props.word ? (
-				<div className={"letter-chain" + getLetterChainClass(word)}
+				<div className={"letter-chain" + Word.getLetterChainClass(word.getWord())}
 					onClick={clickEvent}>
-					{word.split("").map((letter, idx) =>
+					{
+						word.getWord().split("").map((letter, idx) =>
 						<div key={idx}
 							className="letter-block">
 							<img className="bg"
@@ -25,7 +26,7 @@ export default class LetterChain extends React.Component<IProps> {
 								{letter}
 							</div>
 							<div className="value">
-								{getLetterValue(letter)}
+								{Word.getLetterValue(letter)}
 							</div>
 						</div>
 					)}
