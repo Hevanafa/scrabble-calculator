@@ -191,6 +191,11 @@
 
 		font-size: 3vh;
 
+		.empty {
+			font-style: italic;
+			opacity: 50%;
+		}
+
 		button > img {
 			height: 6vh;
 		}
@@ -232,11 +237,15 @@
 				font-family: Nexa;
 				font-weight: bold;
 				font-size: 4vh;
-				color: white;
 
 				display: flex;
 				justify-content: center;
 				align-items: center;
+
+				& > span {
+					position: relative;
+					color: black;
+				}
 			}
 		}
 

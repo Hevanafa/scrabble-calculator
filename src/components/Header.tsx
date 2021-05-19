@@ -10,9 +10,7 @@ interface IProps {
 	isAddingNewWord: boolean;
 }
 export default class Header extends React.Component<IProps> {
-	getPlayerName() {
-		return this.props.players[this.props.selectedPlayerIdx].getName();
-	}
+	getPlayerName = () => this.props.players[this.props.selectedPlayerIdx].getName();
 
 	render() {
 		const {
