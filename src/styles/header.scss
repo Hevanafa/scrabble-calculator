@@ -1,0 +1,19 @@
+.header-area {
+	padding: 2vh 5vw;
+
+	display: flex;
+	justify-content: space-between;
+
+	& > h1 {
+		font-size: 4.5vh;
+	}
+
+	.right-group {
+		display: flex;
+
+		button > img {
+			margin: 0 1vw;
+			height: 8vh;
+		}
+	}
+}

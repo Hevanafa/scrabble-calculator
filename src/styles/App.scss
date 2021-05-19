@@ -1,5 +1,8 @@
 @import "fonts.scss";
 @import "constants.scss";
+
+// Components
+@import "header.scss";
 @import "vocabulary-list.scss";
 @import "letter-chain.scss";
 
@@ -42,26 +45,6 @@ a {
 		& > button,
 		& > .footer {
 			margin: 2vh 0;
-		}
-	}
-}
-
-.header-area {
-	padding: 2vh 5vw;
-
-	display: flex;
-	justify-content: space-between;
-
-	& > h1 {
-		font-size: 4.5vh;
-	}
-
-	.right-group {
-		display: flex;
-
-		button > img {
-			margin: 0 1vw;
-			height: 8vh;
 		}
 	}
 }
@@ -357,18 +340,14 @@ a {
 			justify-content: space-around;
 			align-items: center;
 
-			&.smaller {
-				& > div {
+			&.smaller > div {
 					width: 6vh;
 					height: 6vh;
-				}
 			}
 
-			&.smallest {
-				& > div {
-					width: 4vh;
-					height: 4vh;
-				}
+			&.smallest > div {
+				width: 4vh;
+				height: 4vh;
 			}
 
 			& > div {
