@@ -10,7 +10,7 @@ import HomePlayerList from "./components/HomePlayerList";
 
 import { playClickSound, Player } from "./modules/common";
 
-import "./App.scss";
+import "./styles/App.scss";
 
 interface IState {
 	players: Player[];
@@ -68,7 +68,7 @@ export default class App extends React.Component<{}, IState> {
 
 	showPlayerManager() {
 		playClickSound();
-		
+
 		this.setState({
 			isPlayerManagerVisible: true
 		});
