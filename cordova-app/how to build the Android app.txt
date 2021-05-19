@@ -1,0 +1,15 @@
+I made this note just in case I forgot how to build the app.
+
+Run this:
+cordova create cordova-app com.hevanafa.scrabble_calculator scrabbleCalculatorApp
+
+Adhere to this format:
+cordova create [folder_name] [package_name] [app_name]
+
+Then add Android platform:
+cordova platform add android
+
+Don't forget to obtain the `www` folder using the guide.
+
+Finally when there's the `www` folder, run:
+cordova build android
