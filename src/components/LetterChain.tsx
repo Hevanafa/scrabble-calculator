@@ -9,13 +9,14 @@ interface IProps {
 export default class LetterChain extends React.Component<IProps> {
 	render() {
 		const { clickEvent, word } = this.props;
+		const theWord = word.getWord();
 
 		return (
-			this.props.word ? (
+			theWord ? (
 				<div className={"letter-chain" + Word.getLetterChainClass(word.getWord())}
 					onClick={clickEvent}>
 					{
-						word.getWord().split("").map((letter, idx) =>
+						theWord.split("").map((letter, idx) =>
 						<div key={idx}
 							className="letter-block">
 							<img className="bg"

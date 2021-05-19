@@ -8,12 +8,13 @@ import { Player } from "../modules/common";
 interface IProps {
 	backToStart: () => void;
 	addNewWord: () => void;
+	deleteWordPrompt: (e: any) => void;
 
 	player: Player;
 }
 export default class Vocabulary extends React.Component<IProps> {
 	render() {
-		const { addNewWord, backToStart, player } = this.props;
+		const { addNewWord, backToStart, deleteWordPrompt, player } = this.props;
 
 		return (
 			<div className="vocabulary-list">
@@ -30,17 +31,24 @@ export default class Vocabulary extends React.Component<IProps> {
 								</div>
 							) : (
 								player.wordList.map((word, idx) =>
-									<div className="word">
+									<div key={`word_${idx}`}
+										className="word">
 										<div>
-											{word}
+											{word.getWord()}
 										</div>
+
+										{/* Todo: Letter multipliers have no place here */}
 
 										<div className="right-group">
 											{ player.wordList[idx].getWordValue(true) } 
-											{/* getWordWithMultiplierValue(word, player.multipliers[idx]) */}
 
-											<button className="btn-transparent">
-												{/* Todo: delete button */}
+											<button
+												className="btn-transparent"
+												{...{
+													"player-idx": player.id,
+													"word-idx": idx
+												}}
+												onClick={deleteWordPrompt}>
 												<img src="/assets/img/vocabulary_list/delete_button.png" alt="delete" />
 											</button>
 										</div>

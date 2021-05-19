@@ -20,12 +20,10 @@ class Player {
 	public getName = () => this.name;
 
 	public addWord(word: string, wordMultiplier: number, letterMultiplierAry: number[]) {
-		if (!wordMultiplier)
-			wordMultiplier = 1;
-
-		if (!letterMultiplierAry)
-
-		this.wordList.push(new Word(word.toUpperCase(), wordMultiplier, letterMultiplierAry));
+		this.wordList.push(new Word(
+			word.toUpperCase(),
+			wordMultiplier,
+			letterMultiplierAry));
 	}
 
 	// public getComputedScore() {
@@ -44,12 +42,12 @@ class Player {
 class Word {
 	private word: string;
 	private wordMultiplier: number;
-	private letterMultiplierArray: number[];
+	private letterMultiplierArray: number[]; // an array with 15 elements
 
 	constructor(word?: string, wordMultiplier?: number, letterMultiplierArray?: number[]) {
 		this.word = word || "";
 		this.wordMultiplier = wordMultiplier || 1;
-		this.letterMultiplierArray = !word ? [] : letterMultiplierArray || [...new Array(word.length)].map(_ => 1);
+		this.letterMultiplierArray = letterMultiplierArray || [...new Array(15)].map(_ => 1);
 	}
 
 	public getWord = () => this.word;

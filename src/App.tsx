@@ -88,8 +88,8 @@ export default class App extends React.Component<{}, IState> {
 
 	insertNewWord(e: any) {
 		const letters = e.currentTarget.getAttribute("letters") as string,
-			multipliers = e.currentTarget.getAttribute("multipliers") as string,
-			wordMultiplier = e.currentTarget.getAttribute("word-multiplier") as string;
+			wordMultiplier = e.currentTarget.getAttribute("word-multiplier") as string,
+			letterMultipliers = e.currentTarget.getAttribute("letter-multipliers") as string;
 
 		if (!letters) {
 			this.setState({
@@ -105,16 +105,31 @@ export default class App extends React.Component<{}, IState> {
 		player.addWord(
 			letters.replace(/,/g, "").substr(0, 15),
 			Number(wordMultiplier),
-			multipliers.split(",").map(n => Number(n))
+			letterMultipliers.split(",").map(n => Number(n))
 		)
 
-		console.log("iNW");
+		console.log("iNW attributes", letters, wordMultiplier, letterMultipliers);
 
 		this.setState({
 			players,
 			isAddingNewWord: false
 		});
 	}
+
+	deleteWordPrompt(e: any) {
+		const playerIdx = Number(e.currentTarget.getAttribute("player-idx")),
+			wordIdx = Number(e.currentTarget.getAttribute("idx"));
+
+		const { players } = this.state;
+		const player = players[playerIdx];
+
+		if (!window.confirm(`Delete ${player.wordList[wordIdx].getWord()}?`))
+			return;
+
+		player.wordList.splice(wordIdx, 1);
+		this.setState({ players });
+	}
+
 
 	resetScores() {
 		if (!window.confirm("Reset scores?"))
@@ -217,6 +232,8 @@ export default class App extends React.Component<{}, IState> {
 									player={this.state.players[this.state.selectedPlayerIdx]}
 									addNewWord={this.addNewWord.bind(this)}
 									backToStart={this.backToStart.bind(this)}
+
+									deleteWordPrompt={this.deleteWordPrompt.bind(this)}
 								/> :
 								null
 					}

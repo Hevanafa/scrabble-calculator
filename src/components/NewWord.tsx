@@ -123,8 +123,8 @@ export default class NewWord extends React.Component<IProps, IState> {
 				<button
 					{...{
 						letters: (word.getWord().split("") || []) + "",
-						multipliers: (word.getAllLetterMultipliers() || []) + "",
-						wordMultiplier: (word.getWordMultiplier())
+						"word-multiplier": word.getWordMultiplier(),
+						"letter-multipliers": (word.getAllLetterMultipliers() || []) + ""
 					}}
 					onClick={this.props.insertWord}
 					className="btn-transparent btn-dark-cyan">
