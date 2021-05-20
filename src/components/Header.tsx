@@ -1,5 +1,5 @@
 import React from "react";
-import { getAssetImgPath, Player } from "../modules/common";
+import { getDefaultThemeAssetPath, Player } from "../modules/common";
 
 interface IProps {
 	players: Player[];
@@ -46,12 +46,12 @@ export default class Header extends React.Component<IProps> {
 
 				<div className="right-group">
 					<button className="btn-transparent">
-						<img src={getAssetImgPath + "/change_theme_button.png"}
+						<img src={getDefaultThemeAssetPath + "/change_theme_button.svg"}
 							alt="change theme" />
 					</button>
 
 					<button className="btn-transparent">
-						<img src={getAssetImgPath + "/help_button.png"}
+						<img src={getDefaultThemeAssetPath + "/help_button.svg"}
 							alt="help button" />
 					</button>
 				</div>

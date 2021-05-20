@@ -2,7 +2,7 @@ import React from "react";
 
 import LetterChain from "./LetterChain";
 
-import { Word, Player, getAssetImgPath } from "../modules/common";
+import { Word, Player, getDefaultThemeAssetPath } from "../modules/common";
 
 interface IProps {
 	insertWord: (e: any) => void;
@@ -69,7 +69,7 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 	getComputedScore = () => this.state.word.getWordValue(true);
 
-	readonly imgPath = getAssetImgPath + "/add_new_word";
+	readonly imgPath = getDefaultThemeAssetPath + "/add_new_word";
 
 	render() {
 		const {word} = this.state,
@@ -81,7 +81,7 @@ export default class NewWord extends React.Component<IProps, IState> {
 			<div className="add-new-word">
 				<div className="new-word-container">
 					<img className="bg"
-						src={getAssetImgPath + "/vocabulary_list/bg.png"}
+						src={getDefaultThemeAssetPath + "/vocabulary_list/bg.svg"}
 						alt="bg" />
 					
 					<div className="word-multiplier">
@@ -90,17 +90,17 @@ export default class NewWord extends React.Component<IProps, IState> {
 						{
 							!actualWord ? (
 							<>
-								<img src={this.imgPath + "/empty_word_multiplier.png"} alt="word multiplier" />
+								<img src={this.imgPath + "/empty_word_multiplier.svg"} alt="word multiplier" />
 								<span>N/A</span>
 							</>
 							) : wordMultiplier === 1 ? (
 							<>
-								<img src={this.imgPath + "/empty_word_multiplier.png"} alt="word multiplier" />
+								<img src={this.imgPath + "/empty_word_multiplier.svg"} alt="word multiplier" />
 								<span></span>
 							</>
 							) : (
 							<>
-								<img src={this.imgPath + `/${wordMultiplier}x_word_multiplier.png`} alt="word multiplier" />
+								<img src={this.imgPath + `/${wordMultiplier}x_word_multiplier.svg`} alt="word multiplier" />
 								<span>{ wordMultiplier }×</span>
 							</>
 							)
@@ -123,9 +123,9 @@ export default class NewWord extends React.Component<IProps, IState> {
 										src={
 											this.imgPath +
 											(
-												quantity === 2 ? "/2x_letter_multiplier.png" :
-												quantity === 3 ? "/3x_letter_multiplier.png" :
-												"/empty_letter_multiplier.png"
+												quantity === 2 ? "/2x_letter_multiplier.svg" :
+												quantity === 3 ? "/3x_letter_multiplier.svg" :
+												"/empty_letter_multiplier.svg"
 											)
 										}
 										alt="letter multiplier" />
@@ -153,7 +153,7 @@ export default class NewWord extends React.Component<IProps, IState> {
 					}}
 					onClick={this.props.insertWord}
 					className="btn-transparent btn-dark-cyan">
-					<img src={getAssetImgPath + "/dark_cyan_button.png"}
+					<img src={getDefaultThemeAssetPath + "/dark_cyan_button.svg"}
 						alt="button" />
 					<span>Done</span>
 				</button>

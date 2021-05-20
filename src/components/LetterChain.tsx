@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getAssetImgPath, Word } from "../modules/common";
+import { getDefaultThemeAssetPath, Word } from "../modules/common";
 
 interface IProps {
 	clickEvent: (e: any) => void;
@@ -21,7 +21,7 @@ export default class LetterChain extends React.Component<IProps> {
 						<div key={idx}
 							className="letter-block">
 							<img className="bg"
-								src={getAssetImgPath + "/letter_block.png"}
+								src={getDefaultThemeAssetPath + "/letter_block.svg"}
 								alt="letter block" />
 
 							<div className="big-letter">

@@ -1,5 +1,5 @@
 import React from "react";
-import { getAssetImgPath } from "../modules/common";
+import { getDefaultThemeAssetPath } from "../modules/common";
 
 interface IProps {
 	clickEvent: (e: any) => void;
@@ -14,7 +14,7 @@ export default class DarkCyanButton extends React.PureComponent<IProps> {
 				onClick={clickEvent}
 				className="btn-transparent btn-dark-cyan">
 				<img
-					src={getAssetImgPath + "/dark_cyan_button.png"}
+					src={getDefaultThemeAssetPath + "/dark_cyan_button.svg"}
 					alt="dark cyan button" />
 				<span>{ label }</span>
 			</button>

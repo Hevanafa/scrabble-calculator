@@ -2,7 +2,7 @@ import React from "react";
 
 import DarkCyanButton from "./DarkCyanButton";
 
-import { getAssetImgPath, Player } from "../modules/common";
+import { getDefaultThemeAssetPath, Player } from "../modules/common";
 
 interface IProps {
 	changePlayerName: (e: any) => void;
@@ -34,7 +34,7 @@ export default class PlayerManager extends React.Component<IProps> {
 								className="btn-transparent"
 								{...{ idx }}
 								onClick={changePlayerName}>
-								<img src={getAssetImgPath + "/player_manager/edit_button.png"}
+								<img src={getDefaultThemeAssetPath + "/player_manager/edit_button.svg"}
 									alt="edit" />
 							</button>
 						</div>

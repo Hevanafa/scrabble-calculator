@@ -3,7 +3,7 @@ import React from "react";
 import DarkCyanButton from "./DarkCyanButton";
 import TransparentButton from "./TransparentButton";
 
-import { getAssetImgPath, Player } from "../modules/common";
+import { getDefaultThemeAssetPath, Player } from "../modules/common";
 
 interface IProps {
 	backToStart: () => void;
@@ -20,7 +20,7 @@ export default class Vocabulary extends React.Component<IProps> {
 			<div className="vocabulary-list">
 				<div className="word-container">
 					<img className="bg"
-						src={getAssetImgPath + "/vocabulary_list/bg.png"}
+						src={getDefaultThemeAssetPath + "/vocabulary_list/bg.svg"}
 						alt="bg" />
 
 					<div className="scrollable-area">
@@ -49,7 +49,7 @@ export default class Vocabulary extends React.Component<IProps> {
 													"word-idx": idx
 												}}
 												onClick={deleteWordPrompt}>
-												<img src={getAssetImgPath + "/vocabulary_list/delete_button.png"}
+												<img src={getDefaultThemeAssetPath + "/vocabulary_list/delete_button.svg"}
 													alt="delete" />
 											</button>
 										</div>
