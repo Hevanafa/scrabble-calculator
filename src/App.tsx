@@ -189,7 +189,7 @@ export default class App extends React.Component<{}, IState> {
 		playClickSound();
 
 		const playerIdx = Number(e.currentTarget.getAttribute("player-idx")),
-			wordIdx = Number(e.currentTarget.getAttribute("idx"));
+			wordIdx = Number(e.currentTarget.getAttribute("word-idx"));
 
 		const { players } = this.state;
 		const player = players[playerIdx];
