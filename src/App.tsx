@@ -22,6 +22,7 @@ interface IState {
 
 	isAddingNewWord: boolean;
 
+	playSounds: boolean;
 	activeTheme: string;
 }
 export default class App extends React.Component<{}, IState> {
@@ -40,8 +41,9 @@ export default class App extends React.Component<{}, IState> {
 
 			isAddingNewWord: false,
 
+			playSounds: true,
 			activeTheme: "default"
-			// Todo: save the theme
+			// Todo: save the sound config & the theme
 		};
 	}
 
@@ -113,7 +115,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	showPlayerManager() {
-		playClickSound();
+		if (this.state.playSounds)
+			playClickSound();
 
 		this.setState({
 			isPlayerManagerVisible: true
@@ -121,7 +124,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	changePlayerName(e: any) {
-		playClickSound();
+		if (this.state.playSounds)
+			playClickSound();
 
 		const idx = Number(e.currentTarget.getAttribute("idx"));
 
@@ -139,7 +143,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	showVocabularyList(e: any) {
-		playClickSound();
+		if (this.state.playSounds)
+			playClickSound();
 
 		const idx = Number(e.currentTarget.getAttribute("idx"));
 
@@ -152,7 +157,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	addNewWord() {
-		playClickSound();
+		if (this.state.playSounds)
+			playClickSound();
 
 		this.setState({
 			isAddingNewWord: true
@@ -192,7 +198,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	deleteWordPrompt(e: any) {
-		playClickSound();
+		if (this.state.playSounds)
+			playClickSound();
 
 		const playerIdx = Number(e.currentTarget.getAttribute("player-idx")),
 			wordIdx = Number(e.currentTarget.getAttribute("word-idx"));
@@ -211,7 +218,8 @@ export default class App extends React.Component<{}, IState> {
 
 
 	resetScores() {
-		playClickSound();
+		if (this.state.playSounds)
+			playClickSound();
 
 		if (!window.confirm("Reset scores?"))
 			return;
@@ -227,7 +235,8 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	backToStart() {
-		playClickSound();
+		if (this.state.playSounds)
+			playClickSound();
 
 		this.setState({
 			isPlayerManagerVisible: false,
