@@ -1,19 +1,25 @@
 import React from "react";
-import { getDefaultThemeAssetPath } from "../modules/common";
+import { getThemeAssetPath } from "../modules/common";
 
 interface IProps {
 	clickEvent: (e: any) => void;
+
+	activeTheme: string;
 	label: string;
 }
 export default class DarkCyanButton extends React.PureComponent<IProps> {
 	render() {
-		const {clickEvent, label} = this.props;
+		const {
+			clickEvent,
+			activeTheme,
+			label
+		} = this.props;
 
 		return (
 			<button
 				onClick={clickEvent}
 				className="btn-transparent btn-transparent-bg">
-				<img src={getDefaultThemeAssetPath + "/transparent_button.svg"}
+				<img src={getThemeAssetPath(activeTheme) + "/transparent_button.svg"}
 					alt="transparent button" />
 				<span>{ label }</span>
 			</button>

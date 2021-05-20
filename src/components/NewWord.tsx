@@ -2,11 +2,12 @@ import React from "react";
 
 import LetterChain from "./LetterChain";
 
-import { Word, Player, getDefaultThemeAssetPath } from "../modules/common";
+import { Word, Player, getThemeAssetPath } from "../modules/common";
 
 interface IProps {
 	insertWord: (e: any) => void;
 	player: Player;
+	activeTheme: string;
 }
 
 interface IState {
@@ -69,10 +70,11 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 	getComputedScore = () => this.state.word.getWordValue(true);
 
-	readonly imgPath = getDefaultThemeAssetPath + "/add_new_word";
+	readonly imgPath = getThemeAssetPath(this.props.activeTheme) + "/add_new_word";
 
 	render() {
 		const {word} = this.state,
+			{insertWord, activeTheme} = this.props,
 			actualWord = word.getWord(),
 			wordMultiplier = word.getWordMultiplier(),
 			letterChainClass = Word.getLetterChainClass(word.getWord());
@@ -81,7 +83,7 @@ export default class NewWord extends React.Component<IProps, IState> {
 			<div className="add-new-word">
 				<div className="new-word-container">
 					<img className="bg"
-						src={getDefaultThemeAssetPath + "/vocabulary_list/bg.svg"}
+						src={getThemeAssetPath(activeTheme) + "/vocabulary_list/bg.svg"}
 						alt="bg" />
 					
 					<div className="word-multiplier">
@@ -110,6 +112,7 @@ export default class NewWord extends React.Component<IProps, IState> {
 
 					<LetterChain
 						word={word}
+						{...this.props}
 						clickEvent={this.showWordPrompt}
 					/>
 
@@ -151,9 +154,9 @@ export default class NewWord extends React.Component<IProps, IState> {
 						"word-multiplier": wordMultiplier,
 						"letter-multipliers": (word.getAllLetterMultipliers() || []) + ""
 					}}
-					onClick={this.props.insertWord}
+					onClick={insertWord}
 					className="btn-transparent btn-dark-cyan">
-					<img src={getDefaultThemeAssetPath + "/dark_cyan_button.svg"}
+					<img src={getThemeAssetPath(activeTheme) + "/dark_cyan_button.svg"}
 						alt="button" />
 					<span>Done</span>
 				</button>

@@ -35,6 +35,8 @@ a {
 	flex-direction: column;
 	height: 100vh;
 
+	transition: 0.25s;
+
 	& > .lighter-container {
 		display: flex;
 		flex-direction: column;
@@ -45,6 +47,14 @@ a {
 		& > button,
 		& > .footer {
 			margin: 2vh 0;
+		}
+	}
+
+	&.pastel-theme {
+		background: #94c187;
+
+		& > .lighter-container {
+			background: #b6dcb6;
 		}
 	}
 }

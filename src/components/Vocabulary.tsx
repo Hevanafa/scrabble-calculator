@@ -3,24 +3,31 @@ import React from "react";
 import DarkCyanButton from "./DarkCyanButton";
 import TransparentButton from "./TransparentButton";
 
-import { getDefaultThemeAssetPath, Player } from "../modules/common";
+import { getThemeAssetPath, Player } from "../modules/common";
 
 interface IProps {
 	backToStart: () => void;
 	addNewWord: () => void;
 	deleteWordPrompt: (e: any) => void;
 
+	activeTheme: string;
 	player: Player;
 }
 export default class Vocabulary extends React.Component<IProps> {
 	render() {
-		const { addNewWord, backToStart, deleteWordPrompt, player } = this.props;
+		const {
+			addNewWord,
+			backToStart,
+			deleteWordPrompt,
+			activeTheme,
+			player
+		} = this.props;
 
 		return (
 			<div className="vocabulary-list">
 				<div className="word-container">
 					<img className="bg"
-						src={getDefaultThemeAssetPath + "/vocabulary_list/bg.svg"}
+						src={getThemeAssetPath(activeTheme) + "/vocabulary_list/bg.svg"}
 						alt="bg" />
 
 					<div className="scrollable-area">
@@ -49,7 +56,7 @@ export default class Vocabulary extends React.Component<IProps> {
 													"word-idx": idx
 												}}
 												onClick={deleteWordPrompt}>
-												<img src={getDefaultThemeAssetPath + "/vocabulary_list/delete_button.svg"}
+												<img src={getThemeAssetPath(activeTheme) + "/vocabulary_list/delete_button.svg"}
 													alt="delete" />
 											</button>
 										</div>
@@ -62,11 +69,13 @@ export default class Vocabulary extends React.Component<IProps> {
 
 				<DarkCyanButton
 					clickEvent={addNewWord}
+					{...this.props}
 					label="Add Word"
 				/>
 
 				<TransparentButton
 					clickEvent={backToStart}
+					{...this.props}
 					label="Done"
 				/>
 			</div>

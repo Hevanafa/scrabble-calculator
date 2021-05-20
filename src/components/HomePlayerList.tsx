@@ -1,15 +1,20 @@
 import React from "react";
 
-import { getDefaultThemeAssetPath, Player } from "../modules/common";
+import { getThemeAssetPath, Player } from "../modules/common";
 
 interface IProps {
 	showVocabularyList: (e: any) => void;
 
+	activeTheme: string;
 	players: Player[];
 }
 export default class HomePlayerList extends React.Component<IProps> {
 	render() {
-		const { showVocabularyList, players } = this.props;
+		const {
+			showVocabularyList,
+			activeTheme,
+			players
+		} = this.props;
 
 		return (
 			<div className="start-player-list">
@@ -29,7 +34,7 @@ export default class HomePlayerList extends React.Component<IProps> {
 										className="btn-transparent"
 										{...{ idx: idx }}
 										onClick={showVocabularyList}>
-										<img src={getDefaultThemeAssetPath + "/red_plus_button.svg"}
+										<img src={getThemeAssetPath(activeTheme) + "/red_plus_button.svg"}
 											alt="Red Plus" />
 									</button>
 								</div>

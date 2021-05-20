@@ -21,6 +21,8 @@ interface IState {
 	selectedPlayerIdx: number;
 
 	isAddingNewWord: boolean;
+
+	activeTheme: string;
 }
 export default class App extends React.Component<{}, IState> {
 	constructor(props: any) {
@@ -37,18 +39,22 @@ export default class App extends React.Component<{}, IState> {
 			selectedPlayerIdx: 0,
 
 			isAddingNewWord: false,
+
+			activeTheme: "default"
+			// Todo: save the theme
 		};
 	}
 
 	bindFunctions() {
-		this.showVocabularyList = this.showVocabularyList.bind(this);
-		this.changePlayerName = this.changePlayerName.bind(this);
-		this.backToStart = this.backToStart.bind(this)
-		this.insertNewWord = this.insertNewWord.bind(this)
 		this.addNewWord = this.addNewWord.bind(this)
+		this.backToStart = this.backToStart.bind(this)
+		this.changeTheme = this.changeTheme.bind(this);
+		this.changePlayerName = this.changePlayerName.bind(this);
 		this.deleteWordPrompt = this.deleteWordPrompt.bind(this)
-		this.showPlayerManager = this.showPlayerManager.bind(this)
+		this.insertNewWord = this.insertNewWord.bind(this)
 		this.resetScores = this.resetScores.bind(this)
+		this.showPlayerManager = this.showPlayerManager.bind(this)
+		this.showVocabularyList = this.showVocabularyList.bind(this);
 	}
 
 	componentDidMount() {
@@ -235,10 +241,21 @@ export default class App extends React.Component<{}, IState> {
 			!this.state.isAddingNewWord;
 	}
 
+	changeTheme() {
+		let {activeTheme} = this.state;
+
+		if (activeTheme === "default")
+			activeTheme = "pastel";
+		else activeTheme = "default";
+
+		this.setState({activeTheme});
+	}
+
 	noop() { }
 
 	render() {
 		const {
+			activeTheme,
 			players,
 			isPlayerManagerVisible,
 			isAddingNewWord,
@@ -247,8 +264,11 @@ export default class App extends React.Component<{}, IState> {
 		} = this.state;
 
 		return (
-			<div className="App">
-				<Header {...this.state} />
+			<div className={`App ${activeTheme}-theme`}>
+				<Header
+					changeTheme={this.changeTheme}
+					{...this.state}
+					/>
 
 				<div className="lighter-container">
 					{
@@ -274,7 +294,7 @@ export default class App extends React.Component<{}, IState> {
 						isAddingNewWord ?
 							<NewWord
 								insertWord={this.insertNewWord}
-
+								{...this.state}
 								player={players[selectedPlayerIdx]}
 								/>
 							: isVocabularyListVisible ?
@@ -282,7 +302,7 @@ export default class App extends React.Component<{}, IState> {
 									addNewWord={this.addNewWord}
 									backToStart={this.backToStart}
 									deleteWordPrompt={this.deleteWordPrompt}
-
+									{...this.state}
 									player={players[selectedPlayerIdx]}
 								/> :
 								null
@@ -292,11 +312,13 @@ export default class App extends React.Component<{}, IState> {
 						this.isStartPage() ? <>
 							<DarkCyanButton
 								clickEvent={this.showPlayerManager}
+								{...this.state}
 								label="Manage Players"
 							/>
 
 							<DarkCyanButton
 								clickEvent={this.resetScores}
+								{...this.state}
 								label="Reset Scores"
 							/>
 

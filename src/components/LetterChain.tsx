@@ -1,15 +1,20 @@
 import React from "react";
 
-import { getDefaultThemeAssetPath, Word } from "../modules/common";
+import { getThemeAssetPath, Word } from "../modules/common";
 
 interface IProps {
 	clickEvent: (e: any) => void;
 
+	activeTheme: string;
 	word: Word;
 }
 export default class LetterChain extends React.Component<IProps> {
 	render() {
-		const { clickEvent, word } = this.props;
+		const {
+			clickEvent,
+			activeTheme,
+			word
+		} = this.props;
 		const theWord = word.getWord();
 
 		return (
@@ -21,7 +26,7 @@ export default class LetterChain extends React.Component<IProps> {
 						<div key={idx}
 							className="letter-block">
 							<img className="bg"
-								src={getDefaultThemeAssetPath + "/letter_block.svg"}
+								src={getThemeAssetPath(activeTheme) + "/letter_block.svg"}
 								alt="letter block" />
 
 							<div className="big-letter">

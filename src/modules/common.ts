@@ -104,7 +104,11 @@ function playClickSound() {
 }
 
 const getAssetImgPath = "./assets/img";
-const getDefaultThemeAssetPath = "./assets/img/default_theme";
+// const getDefaultThemeAssetPath = "./assets/img/default_theme";
+
+function getThemeAssetPath(themeName: string) {
+	return `./assets/img/${themeName || "default"}_theme`;
+}
 
 export {
 	Player,
@@ -113,5 +117,5 @@ export {
 	playClickSound,
 
 	getAssetImgPath,
-	getDefaultThemeAssetPath
+	getThemeAssetPath
 }

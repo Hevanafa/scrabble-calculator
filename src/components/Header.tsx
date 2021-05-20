@@ -1,22 +1,28 @@
 import React from "react";
-import { getDefaultThemeAssetPath, Player } from "../modules/common";
+import { getAssetImgPath, getThemeAssetPath, Player } from "../modules/common";
 
 interface IProps {
+	changeTheme: () => void;
+
 	players: Player[];
 	isPlayerManagerVisible: boolean;
 	isVocabularyListVisible: boolean;
 	selectedPlayerIdx: number;
 
 	isAddingNewWord: boolean;
+	activeTheme: string;
 }
 export default class Header extends React.Component<IProps> {
 	getPlayerName = () => this.props.players[this.props.selectedPlayerIdx].getName();
 
 	render() {
 		const {
+			changeTheme,
+
 			isPlayerManagerVisible,
 			isVocabularyListVisible,
-			isAddingNewWord
+			isAddingNewWord,
+			activeTheme
 		} = this.props;
 
 		if (isPlayerManagerVisible)
@@ -45,13 +51,14 @@ export default class Header extends React.Component<IProps> {
 				<h1>Scrabble Calculator</h1>
 
 				<div className="right-group">
-					<button className="btn-transparent">
-						<img src={getDefaultThemeAssetPath + "/change_theme_button.svg"}
+					<button className="btn-transparent"
+						onClick={changeTheme}>
+						<img src={getAssetImgPath + "/change_theme_button.svg"}
 							alt="change theme" />
 					</button>
 
 					<button className="btn-transparent">
-						<img src={getDefaultThemeAssetPath + "/help_button.svg"}
+						<img src={getThemeAssetPath(activeTheme) + "/help_button.svg"}
 							alt="help button" />
 					</button>
 				</div>

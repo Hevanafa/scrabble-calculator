@@ -2,12 +2,13 @@ import React from "react";
 
 import DarkCyanButton from "./DarkCyanButton";
 
-import { getDefaultThemeAssetPath, Player } from "../modules/common";
+import { getThemeAssetPath, Player } from "../modules/common";
 
 interface IProps {
 	changePlayerName: (e: any) => void;
 	backToStart: () => void;
 
+	activeTheme: string,
 	players: Player[];
 }
 export default class PlayerManager extends React.Component<IProps> {
@@ -15,6 +16,7 @@ export default class PlayerManager extends React.Component<IProps> {
 		const {
 			changePlayerName,
 			backToStart,
+			activeTheme,
 			players
 		} = this.props;
 
@@ -34,7 +36,7 @@ export default class PlayerManager extends React.Component<IProps> {
 								className="btn-transparent"
 								{...{ idx }}
 								onClick={changePlayerName}>
-								<img src={getDefaultThemeAssetPath + "/player_manager/edit_button.svg"}
+								<img src={getThemeAssetPath(activeTheme) + "/player_manager/edit_button.svg"}
 									alt="edit" />
 							</button>
 						</div>
@@ -47,6 +49,7 @@ export default class PlayerManager extends React.Component<IProps> {
 
 				<DarkCyanButton
 					clickEvent={backToStart}
+					{...this.props}
 					label="Done"
 				/>
 			</div>
