@@ -28,8 +28,6 @@ export default class App extends React.Component<{}, IState> {
 
 		this.bindFunctions();
 
-		this.loadPlayerData();
-
 		this.state = {
 			players: [],
 
@@ -54,8 +52,7 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	componentDidMount() {
-		if (!this.isPlayerDataLoaded)
-			this.initPlayers();
+		this.initPlayers();
 	}
 
 	initPlayers () {
@@ -70,7 +67,9 @@ export default class App extends React.Component<{}, IState> {
 			players.push(newPlayer);
 		}
 
-		this.setState({ players });
+		this.setState({ players }, () => {
+			this.loadPlayerData();
+		});
 	}
 
 	readonly localStorageKey = "ScrabblePlayers";
@@ -80,9 +79,26 @@ export default class App extends React.Component<{}, IState> {
 
 		if (!playerData) return;
 
-		const players = JSON.parse(playerData);
+		const parsedArray = JSON.parse(playerData);
+		let players: Player[] = [];
+
+		for (const player of parsedArray) {
+			const newPlayer = new Player(player.id);
+			newPlayer.setName(player.name)
+
+			for (const word of player.wordList)
+				newPlayer.addWord(word.word, word.wordMultiplier, word.letterMultiplierArray);
+
+			players.push(newPlayer);
+		}
+
 		this.isPlayerDataLoaded = true;
-		this.setState({players});
+
+		// console.log("Saved player data:", players);
+
+		this.setState({
+			players: players
+		});
 	}
 
 	savePlayerData() {
@@ -257,14 +273,17 @@ export default class App extends React.Component<{}, IState> {
 					{
 						isAddingNewWord ?
 							<NewWord
+								insertWord={this.insertNewWord}
+
 								player={players[selectedPlayerIdx]}
-								insertWord={this.insertNewWord} />
+								/>
 							: isVocabularyListVisible ?
 								<Vocabulary
-									player={players[selectedPlayerIdx]}
 									addNewWord={this.addNewWord}
 									backToStart={this.backToStart}
 									deleteWordPrompt={this.deleteWordPrompt}
+
+									player={players[selectedPlayerIdx]}
 								/> :
 								null
 					}
@@ -273,7 +292,8 @@ export default class App extends React.Component<{}, IState> {
 						this.isStartPage() ? <>
 							<DarkCyanButton
 								clickEvent={this.showPlayerManager}
-								label="Manage Players" />
+								label="Manage Players"
+							/>
 
 							<DarkCyanButton
 								clickEvent={this.resetScores}
