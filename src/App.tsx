@@ -28,6 +28,8 @@ export default class App extends React.Component<{}, IState> {
 
 		this.bindFunctions();
 
+		this.loadPlayerData();
+
 		this.state = {
 			players: [],
 
@@ -52,6 +54,11 @@ export default class App extends React.Component<{}, IState> {
 	}
 
 	componentDidMount() {
+		if (!this.isPlayerDataLoaded)
+			this.initPlayers();
+	}
+
+	initPlayers () {
 		const { players } = this.state;
 
 		for (var a = 0; a < 4; a++) {
@@ -66,6 +73,23 @@ export default class App extends React.Component<{}, IState> {
 		this.setState({ players });
 	}
 
+	readonly localStorageKey = "ScrabblePlayers";
+	isPlayerDataLoaded = false;
+	loadPlayerData() {
+		const playerData = localStorage.getItem(this.localStorageKey);
+
+		if (!playerData) return;
+
+		const players = JSON.parse(playerData);
+		this.isPlayerDataLoaded = true;
+		this.setState({players});
+	}
+
+	savePlayerData() {
+		const playerData = JSON.stringify(this.state.players);
+		localStorage.setItem(this.localStorageKey, playerData);
+	}
+
 	showPlayerManager() {
 		playClickSound();
 
@@ -77,7 +101,7 @@ export default class App extends React.Component<{}, IState> {
 	changePlayerName(e: any) {
 		playClickSound();
 
-		const idx = Number(e.currentTarget?.getAttribute("idx"));
+		const idx = Number(e.currentTarget.getAttribute("idx"));
 
 		const { players } = this.state;
 		const newName = prompt(`Enter the new name for Player ${idx + 1}:`, players[idx].getName());
@@ -87,7 +111,9 @@ export default class App extends React.Component<{}, IState> {
 
 		players[idx].setName(newName);
 
-		this.setState({ players });
+		this.setState({ players }, () => {
+			this.savePlayerData();
+		});
 	}
 
 	showVocabularyList(e: any) {
@@ -138,6 +164,8 @@ export default class App extends React.Component<{}, IState> {
 		this.setState({
 			players,
 			isAddingNewWord: false
+		}, () => {
+			this.savePlayerData();
 		});
 	}
 
@@ -154,7 +182,9 @@ export default class App extends React.Component<{}, IState> {
 			return;
 
 		player.wordList.splice(wordIdx, 1);
-		this.setState({ players });
+		this.setState({ players }, () => {
+			this.savePlayerData();
+		});
 	}
 
 
@@ -169,7 +199,9 @@ export default class App extends React.Component<{}, IState> {
 		for (var player of players)
 			player.wordList = [];
 
-		this.setState({ players });
+		this.setState({ players }, () => {
+			this.savePlayerData();
+		});
 	}
 
 	backToStart() {
